@@ -45,11 +45,7 @@ export default function Home() {
                 afterSignInUrl="/learn"
                 afterSignUpUrl="/learn"
               >
-                <Button
-                  size={"lg"}
-                  variant={"secondaryOutline"}
-                  className="w-full"
-                >
+                <Button size={"lg"} variant={"ghost"} className="w-full">
                   Eu já tenho uma conta
                 </Button>
               </SignInButton>
