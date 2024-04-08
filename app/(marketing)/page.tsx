@@ -53,7 +53,7 @@ export default function Home() {
             <SignedIn>
               <Button
                 size={"lg"}
-                variant={"secondary"}
+                variant={"primary"}
                 className="w-full"
                 asChild
               >
