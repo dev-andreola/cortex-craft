@@ -5,6 +5,8 @@ import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import { ptBR } from "@clerk/localizations";
 
+import { Toaster } from "@/components/ui/sonner";
+
 const font = Nunito({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -23,7 +25,10 @@ export default function RootLayout({
       localization={ptBR}
     >
       <html lang="pt-br">
-        <body className={font.className}>{children}</body>
+        <body className={font.className}>
+          <Toaster />
+          {children}
+        </body>
       </html>
     </ClerkProvider>
   );
