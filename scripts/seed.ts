@@ -96,7 +96,7 @@ const main = async () => {
         lessonId: 1,
         type: "SELECT",
         order: 1,
-        question: 'Which one of these is the "the man"?',
+        question: "Qual desses é uma cadeira?",
       },
       {
         id: 2,
@@ -117,24 +117,24 @@ const main = async () => {
     await db.insert(schema.challengeOptions).values([
       {
         challengeId: 1,
-        imageSrc: "/man.svg",
+        imageSrc: "/chair.svg",
         correct: true,
-        text: "el hombre",
-        audioSrc: "/es_man.mp3",
+        text: "Cadeira",
+        audioSrc: "/cadeira.mp3",
       },
       {
         challengeId: 1,
-        imageSrc: "/woman.svg",
+        imageSrc: "/door.svg",
         correct: false,
-        text: "la mujer",
-        audioSrc: "/es_woman.mp3",
+        text: "Porta",
+        audioSrc: "/porta.mp3",
       },
       {
         challengeId: 1,
-        imageSrc: "/robot.svg",
+        imageSrc: "/broom.svg",
         correct: false,
-        text: "el robot",
-        audioSrc: "/es_robot.mp3",
+        text: "Vassoura",
+        audioSrc: "/vassoura.mp3",
       },
     ]);
 
