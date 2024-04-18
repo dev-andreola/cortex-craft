@@ -4,15 +4,13 @@ import { Sidebar } from "./sidebar";
 
 export const MobileSidebar = () => {
   return (
-    <div>
-      <Sheet>
-        <SheetTrigger>
-          <Menu className="text-white" />
-        </SheetTrigger>
-        <SheetContent className="p-0 z-[100]" side={"left"}>
-          <Sidebar />
-        </SheetContent>
-      </Sheet>
-    </div>
+    <Sheet>
+      <SheetTrigger>
+        <Menu className="text-white" />
+      </SheetTrigger>
+      <SheetContent className="p-0 z-[100]" side={"left"}>
+        <Sidebar />
+      </SheetContent>
+    </Sheet>
   );
 };
