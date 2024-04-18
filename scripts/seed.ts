@@ -103,14 +103,14 @@ const main = async () => {
         lessonId: 1,
         type: "ASSIST",
         order: 2,
-        question: '"the man"',
+        question: "O que é um cachorro quente?",
       },
       {
         id: 3,
         lessonId: 1,
-        type: "SELECT",
+        type: "ASSIST",
         order: 3,
-        question: 'Which one of these is the "the robot"?',
+        question: 'A palavra "pênis" é um:',
       },
     ]);
 
@@ -135,6 +135,42 @@ const main = async () => {
         correct: false,
         text: "Vassoura",
         audioSrc: "/vassoura.mp3",
+      },
+    ]);
+
+    await db.insert(schema.challengeOptions).values([
+      {
+        challengeId: 2,
+        correct: true,
+        text: "Comida",
+      },
+      {
+        challengeId: 2,
+        correct: false,
+        text: "Animal",
+      },
+      {
+        challengeId: 2,
+        correct: false,
+        text: "Lugar",
+      },
+    ]);
+
+    await db.insert(schema.challengeOptions).values([
+      {
+        challengeId: 3,
+        correct: false,
+        text: "Verbo",
+      },
+      {
+        challengeId: 3,
+        correct: true,
+        text: "Substantivo",
+      },
+      {
+        challengeId: 3,
+        correct: false,
+        text: "Adjetivo",
       },
     ]);
 
