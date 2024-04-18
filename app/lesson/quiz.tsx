@@ -2,18 +2,22 @@
 
 import { toast } from "sonner";
 import Image from "next/image";
+import Confetti from "react-confetti";
 import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
 import { useAudio, useWindowSize, useMount } from "react-use";
 
 import { reduceHearts } from "@/actions/user-progress";
+import { useHeartsModal } from "@/store/use-hearts-modal";
+import { challengeOptions, challenges } from "@/db/schema";
+import { usePracticeModal } from "@/store/use-practice-modal";
 import { upsertChallengeProgress } from "@/actions/challenge-progress";
 
 import { Header } from "./header";
 import { Footer } from "./footer";
 import { Challenge } from "./challenge";
 import { QuestionBubble } from "./question-bubble";
-import { challengeOptions, challenges } from "@/db/schema";
+import { ResultCard } from "./result-card";
 
 type Props = {
   initialPercentage: number;
@@ -33,6 +37,15 @@ export const Quiz = ({
   initialLessonChallenges,
   userSubscription,
 }: Props) => {
+  const { open: openHeartsModal } = useHeartsModal();
+  const { open: openPracticeModal } = usePracticeModal();
+
+  useMount(() => {
+    if (initialPercentage === 100) {
+      openPracticeModal();
+    }
+  });
+
   const { width, height } = useWindowSize();
 
   const router = useRouter();
@@ -100,6 +113,7 @@ export const Quiz = ({
         upsertChallengeProgress(challenge.id)
           .then((response) => {
             if (response?.error === "hearts") {
+              openHeartsModal();
               return;
             }
 
@@ -112,13 +126,14 @@ export const Quiz = ({
               setHearts((prev) => Math.min(prev + 1, 5));
             }
           })
-          .catch(() => toast.error("Deu algo errado! Tente novamente."));
+          .catch(() => toast.error("Something went wrong. Please try again."));
       });
     } else {
       startTransition(() => {
         reduceHearts(challenge.id)
           .then((response) => {
             if (response?.error === "hearts") {
+              openHeartsModal();
               return;
             }
 
@@ -129,7 +144,7 @@ export const Quiz = ({
               setHearts((prev) => Math.max(prev - 1, 0));
             }
           })
-          .catch(() => toast.error("Deu algo errado! Tente novamente."));
+          .catch(() => toast.error("Something went wrong. Please try again."));
       });
     }
   };
@@ -138,7 +153,13 @@ export const Quiz = ({
     return (
       <>
         {finishAudio}
-
+        <Confetti
+          width={width}
+          height={height}
+          recycle={false}
+          numberOfPieces={500}
+          tweenDuration={10000}
+        />
         <div className="flex flex-col gap-y-4 lg:gap-y-8 max-w-lg mx-auto text-center items-center justify-center h-full">
           <Image
             src="/finish.svg"
@@ -155,9 +176,12 @@ export const Quiz = ({
             width={50}
           />
           <h1 className="text-xl lg:text-3xl font-bold text-neutral-700">
-            Great job! <br /> You&apos;ve completed the lesson.
+            Muito bem! <br /> Você concluiu essa atividade.
           </h1>
-          <div className="flex items-center gap-x-4 w-full"></div>
+          <div className="flex items-center gap-x-4 w-full">
+            <ResultCard variant="points" value={challenges.length * 10} />
+            <ResultCard variant="hearts" value={hearts} />
+          </div>
         </div>
         <Footer
           lessonId={lessonId}
@@ -180,7 +204,7 @@ export const Quiz = ({
       <Header
         hearts={hearts}
         percentage={percentage}
-        hasActiveSubscription={!!userSubscription?.isActive}
+        hasActiveSubscription={false} // !!userSubscription?.isActive
       />
       <div className="flex-1">
         <div className="h-full flex items-center justify-center">
