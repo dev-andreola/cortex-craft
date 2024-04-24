@@ -1,16 +1,16 @@
 import { cache } from "react";
-import db from "@/db/drizzle";
+import { eq } from "drizzle-orm";
 import { auth } from "@clerk/nextjs";
+
+import db from "@/db/drizzle";
 import {
   challengeProgress,
   courses,
   lessons,
   units,
   userProgress,
-} from "./schema";
-import { eq } from "drizzle-orm";
-
-// GET USER PROGRESS
+  userSubscription,
+} from "@/db/schema";
 
 export const getUserProgress = cache(async () => {
   const { userId } = await auth();
@@ -28,8 +28,6 @@ export const getUserProgress = cache(async () => {
 
   return data;
 });
-
-// GET UNITS
 
 export const getUnits = cache(async () => {
   const { userId } = await auth();
@@ -82,24 +80,29 @@ export const getUnits = cache(async () => {
   return normalizedData;
 });
 
-// GET COURSES
-
 export const getCourses = cache(async () => {
   const data = await db.query.courses.findMany();
 
   return data;
 });
 
-// GET COURSE BY ID
-
 export const getCourseById = cache(async (courseId: number) => {
   const data = await db.query.courses.findFirst({
     where: eq(courses.id, courseId),
+    with: {
+      units: {
+        orderBy: (units, { asc }) => [asc(units.order)],
+        with: {
+          lessons: {
+            orderBy: (lessons, { asc }) => [asc(lessons.order)],
+          },
+        },
+      },
+    },
   });
+
   return data;
 });
-
-// GET COURSE PROGRESS
 
 export const getCourseProgress = cache(async () => {
   const { userId } = await auth();
@@ -149,8 +152,6 @@ export const getCourseProgress = cache(async () => {
   };
 });
 
-// GET LESSON
-
 export const getLesson = cache(async (id?: number) => {
   const { userId } = await auth();
 
@@ -197,8 +198,6 @@ export const getLesson = cache(async (id?: number) => {
   return { ...data, challenges: normalizedChallenges };
 });
 
-// GET LESSON PERCENTAGE
-
 export const getLessonPercentage = cache(async () => {
   const courseProgress = await getCourseProgress();
 
@@ -220,4 +219,47 @@ export const getLessonPercentage = cache(async () => {
   );
 
   return percentage;
+});
+
+const DAY_IN_MS = 86_400_000;
+export const getUserSubscription = cache(async () => {
+  const { userId } = await auth();
+
+  if (!userId) return null;
+
+  const data = await db.query.userSubscription.findFirst({
+    where: eq(userSubscription.userId, userId),
+  });
+
+  if (!data) return null;
+
+  const isActive =
+    data.stripePriceId &&
+    data.stripeCurrentPeriodEnd?.getTime()! + DAY_IN_MS > Date.now();
+
+  return {
+    ...data,
+    isActive: !!isActive,
+  };
+});
+
+export const getTopTenUsers = cache(async () => {
+  const { userId } = await auth();
+
+  if (!userId) {
+    return [];
+  }
+
+  const data = await db.query.userProgress.findMany({
+    orderBy: (userProgress, { desc }) => [desc(userProgress.points)],
+    limit: 10,
+    columns: {
+      userId: true,
+      userName: true,
+      userImageSrc: true,
+      points: true,
+    },
+  });
+
+  return data;
 });

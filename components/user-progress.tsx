@@ -20,8 +20,8 @@ export const UserProgress = ({
 }: Props) => {
   return (
     <div className="flex items-center justify-between gap-x-2 w-full">
-      <Link href={"/courses"}>
-        <Button variant={"ghost"}>
+      <Link href="/courses">
+        <Button variant="ghost">
           <Image
             src={activeCourse.imageSrc}
             alt={activeCourse.title}
@@ -31,10 +31,10 @@ export const UserProgress = ({
           />
         </Button>
       </Link>
-      <Link href={"/shop"}>
-        <Button variant={"ghost"} className="text-orange-500">
+      <Link href="/shop">
+        <Button variant="ghost" className="text-orange-500">
           <Image
-            src={"/points.svg"}
+            src="/points.svg"
             height={28}
             width={28}
             alt="Points"
@@ -43,10 +43,10 @@ export const UserProgress = ({
           {points}
         </Button>
       </Link>
-      <Link href={"/shop"}>
-        <Button variant={"ghost"} className="text-rose-500">
+      <Link href="/shop">
+        <Button variant="ghost" className="text-rose-500">
           <Image
-            src={"/heart.svg"}
+            src="/heart.svg"
             height={22}
             width={22}
             alt="Hearts"
