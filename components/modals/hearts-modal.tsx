@@ -24,7 +24,7 @@ export const HeartsModal = () => {
 
   const onClick = () => {
     close();
-    router.push("/store");
+    router.push("/shop");
   };
 
   if (!isClient) {
@@ -46,7 +46,7 @@ export const HeartsModal = () => {
           </DialogDescription>
         </DialogHeader>
         <DialogFooter className="mb-4">
-          <div className="flex flex-col gap-y-4 w-full">
+          <div className="flex flex-col gap-y-2 w-full">
             <Button
               variant="primary"
               className="w-full"
@@ -56,7 +56,7 @@ export const HeartsModal = () => {
               Vidas ilimitadas
             </Button>
             <Button
-              variant="primaryOutline"
+              variant="dangerOutline"
               className="w-full"
               size="lg"
               onClick={close}
