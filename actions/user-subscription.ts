@@ -13,7 +13,7 @@ export const createStripeUrl = async () => {
   const user = await currentUser();
 
   if (!userId || !user) {
-    throw new Error("Unauthorized");
+    throw new Error("Não autorizado");
   }
 
   const userSubscription = await getUserSubscription();
@@ -37,8 +37,8 @@ export const createStripeUrl = async () => {
         price_data: {
           currency: "USD",
           product_data: {
-            name: "Lingo Pro",
-            description: "Unlimited Hearts",
+            name: "CortexCraft Pro",
+            description: "Vida infinita",
           },
           unit_amount: 2000,
           recurring: { interval: "month" },

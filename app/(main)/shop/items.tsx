@@ -24,7 +24,7 @@ export const Items = ({ hearts, points, hasActiveSubscription }: Props) => {
     }
 
     startTransition(() => {
-      refillHearts().catch(() => toast.error("Something went wrong"));
+      refillHearts().catch(() => toast.error("Algo deu errado"));
     });
   };
 
@@ -36,7 +36,7 @@ export const Items = ({ hearts, points, hasActiveSubscription }: Props) => {
             window.location.href = response.data;
           }
         })
-        .catch(() => toast.error("Something went wrong"));
+        .catch(() => toast.error("Algo deu errado"));
     });
   };
 
@@ -46,7 +46,7 @@ export const Items = ({ hearts, points, hasActiveSubscription }: Props) => {
         <Image src="/heart.svg" alt="Heart" height={60} width={60} />
         <div className="flex-1">
           <p className="text-neutral-700 text-base lg:text-xl font-bold">
-            Refill hearts
+            Encher a vida
           </p>
         </div>
         <Button
@@ -54,7 +54,7 @@ export const Items = ({ hearts, points, hasActiveSubscription }: Props) => {
           disabled={pending || hearts === 5 || points < POINTS_TO_REFILL}
         >
           {hearts === 5 ? (
-            "full"
+            "cheio"
           ) : (
             <div className="flex items-center">
               <Image src="/points.svg" alt="Points" height={20} width={20} />
@@ -67,11 +67,11 @@ export const Items = ({ hearts, points, hasActiveSubscription }: Props) => {
         <Image src="/unlimited.svg" alt="Unlimited" height={60} width={60} />
         <div className="flex-1">
           <p className="text-neutral-700 text-base lg:text-xl font-bold">
-            Unlimited hearts
+            Vida infinita
           </p>
         </div>
         <Button onClick={onUpgrade} disabled={pending}>
-          {hasActiveSubscription ? "settings" : "upgrade"}
+          {hasActiveSubscription ? "configurações" : "atualizar"}
         </Button>
       </div>
     </ul>
