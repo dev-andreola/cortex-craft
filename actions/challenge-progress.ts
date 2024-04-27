@@ -5,20 +5,21 @@ import { and, eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 
 import db from "@/db/drizzle";
-import { getUserProgress } from "@/db/queries";
+import { getUserProgress, getUserSubscription } from "@/db/queries";
 import { challengeProgress, challenges, userProgress } from "@/db/schema";
 
 export const upsertChallengeProgress = async (challengeId: number) => {
   const { userId } = await auth();
 
   if (!userId) {
-    throw new Error("Não autorizado");
+    throw new Error("Unauthorized");
   }
 
   const currentUserProgress = await getUserProgress();
+  const userSubscription = await getUserSubscription();
 
   if (!currentUserProgress) {
-    throw new Error("Seu progresso não foi encontrado");
+    throw new Error("User progress not found");
   }
 
   const challenge = await db.query.challenges.findFirst({
@@ -26,7 +27,7 @@ export const upsertChallengeProgress = async (challengeId: number) => {
   });
 
   if (!challenge) {
-    throw new Error("Desafio não encontrado");
+    throw new Error("Challenge not found");
   }
 
   const lessonId = challenge.lessonId;
@@ -40,7 +41,11 @@ export const upsertChallengeProgress = async (challengeId: number) => {
 
   const isPractice = !!existingChallengeProgress;
 
-  if (currentUserProgress.hearts === 0 && !isPractice) {
+  if (
+    currentUserProgress.hearts === 0 &&
+    !isPractice &&
+    !userSubscription?.isActive
+  ) {
     return { error: "hearts" };
   }
 
