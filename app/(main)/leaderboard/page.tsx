@@ -11,6 +11,8 @@ import {
 } from "@/db/queries";
 import { Separator } from "@/components/ui/separator";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
+import { Quests } from "@/components/quests";
+import { Promo } from "@/components/promo";
 
 const LearderboardPage = async () => {
   const userProgressData = getUserProgress();
@@ -38,8 +40,8 @@ const LearderboardPage = async () => {
           points={userProgress.points}
           hasActiveSubscription={isPro}
         />
-        {/* {!isPro && <Promo />}
-        <Quests points={userProgress.points} /> */}
+        {!isPro && <Promo />}
+        <Quests points={userProgress.points} />
       </StickyWrapper>
       <FeedWrapper>
         <div className="w-full flex flex-col items-center">
