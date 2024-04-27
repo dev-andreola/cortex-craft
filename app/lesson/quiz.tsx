@@ -154,6 +154,7 @@ export const Quiz = ({
   };
 
   if (!challenge) {
+    const isPro = !!userSubscription?.isActive;
     return (
       <>
         {finishAudio}
@@ -184,7 +185,8 @@ export const Quiz = ({
           </h1>
           <div className="flex items-center gap-x-4 w-full">
             <ResultCard variant="points" value={challenges.length * 10} />
-            <ResultCard variant="hearts" value={hearts} />
+            {!isPro && <ResultCard variant="hearts" value={hearts} />}
+            {isPro && <ResultCard variant="hearts" value={"infinity"} />}
           </div>
         </div>
         <Footer
@@ -208,7 +210,7 @@ export const Quiz = ({
       <Header
         hearts={hearts}
         percentage={percentage}
-        hasActiveSubscription={false} // !!userSubscription?.isActive
+        hasActiveSubscription={!!userSubscription?.isActive}
       />
       <div className="flex-1">
         <div className="h-full flex items-center justify-center">
