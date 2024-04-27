@@ -19,17 +19,17 @@ export const upsertUserProgress = async (courseId: number) => {
   const user = await currentUser();
 
   if (!userId || !user) {
-    throw new Error("Unauthorized");
+    throw new Error("Não autorizado");
   }
 
   const course = await getCourseById(courseId);
 
   if (!course) {
-    throw new Error("Course not found");
+    throw new Error("Curso não encontrado");
   }
 
   if (!course.units.length || !course.units[0].lessons.length) {
-    throw new Error("Course is empty");
+    throw new Error("Curso está vazio");
   }
 
   const existingUserProgress = await getUserProgress();
@@ -62,7 +62,7 @@ export const reduceHearts = async (challengeId: number) => {
   const { userId } = await auth();
 
   if (!userId) {
-    throw new Error("Unauthorized");
+    throw new Error("Não autorizado");
   }
 
   const currentUserProgress = await getUserProgress();
@@ -73,7 +73,7 @@ export const reduceHearts = async (challengeId: number) => {
   });
 
   if (!challenge) {
-    throw new Error("Challenge not found");
+    throw new Error("Desafio não encontrado");
   }
 
   const lessonId = challenge.lessonId;
@@ -92,7 +92,7 @@ export const reduceHearts = async (challengeId: number) => {
   }
 
   if (!currentUserProgress) {
-    throw new Error("User progress not found");
+    throw new Error("Não foi encontrado o seu progresso");
   }
 
   if (userSubscription?.isActive) {
@@ -121,15 +121,15 @@ export const refillHearts = async () => {
   const currentUserProgress = await getUserProgress();
 
   if (!currentUserProgress) {
-    throw new Error("User progress not found");
+    throw new Error("Não foi encontrado o seu progresso");
   }
 
   if (currentUserProgress.hearts === 5) {
-    throw new Error("Hearts are already full");
+    throw new Error("Sua vida já está cheia");
   }
 
   if (currentUserProgress.points < POINTS_TO_REFILL) {
-    throw new Error("Not enough points");
+    throw new Error("Você não tem pontos suficientes");
   }
 
   await db

@@ -27,7 +27,7 @@ export const Footer = ({ onCheck, status, disabled, lessonId }: Props) => {
         {status === "correct" && (
           <div className="text-green-500 font-bold text-base lg:text-2xl flex items-center">
             <CheckCircle className="h-6 w-6 lg:h-10 lg:w-10 mr-4" />
-            Brabo!
+            Muito bem!
           </div>
         )}
         {status === "wrong" && (

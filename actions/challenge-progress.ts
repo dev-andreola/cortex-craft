@@ -12,14 +12,14 @@ export const upsertChallengeProgress = async (challengeId: number) => {
   const { userId } = await auth();
 
   if (!userId) {
-    throw new Error("Unauthorized");
+    throw new Error("Não autorizado");
   }
 
   const currentUserProgress = await getUserProgress();
   const userSubscription = await getUserSubscription();
 
   if (!currentUserProgress) {
-    throw new Error("User progress not found");
+    throw new Error("Não foi encontrado o seu progresso");
   }
 
   const challenge = await db.query.challenges.findFirst({
@@ -27,7 +27,7 @@ export const upsertChallengeProgress = async (challengeId: number) => {
   });
 
   if (!challenge) {
-    throw new Error("Challenge not found");
+    throw new Error("Desafio não encontrado");
   }
 
   const lessonId = challenge.lessonId;

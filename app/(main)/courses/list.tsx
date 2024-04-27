@@ -22,7 +22,7 @@ export const List = ({ courses, activeCourseId }: Props) => {
       return router.push("/learn");
     }
     startTransition(() => {
-      upsertUserProgress(id).catch(() => toast.error("Algo deu errado"));
+      upsertUserProgress(id).catch(() => toast.error("Deu algo errado"));
     });
   };
 

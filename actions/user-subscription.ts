@@ -35,7 +35,7 @@ export const createStripeUrl = async () => {
       {
         quantity: 1,
         price_data: {
-          currency: "USD",
+          currency: "BRL",
           product_data: {
             name: "CortexCraft Pro",
             description: "Vida infinita",

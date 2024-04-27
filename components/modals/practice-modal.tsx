@@ -36,7 +36,7 @@ export const PracticeModal = () => {
           </DialogTitle>
           <DialogDescription className="text-center text-base">
             Faça atividades no modo treino para encher as vidas. No modo treino
-            você não perde vidas e nem pontos!
+            você não perde vidas!
           </DialogDescription>
         </DialogHeader>
         <DialogFooter className="mb-4">

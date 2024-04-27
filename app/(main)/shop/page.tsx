@@ -44,7 +44,7 @@ const ShopPage = async () => {
             Loja
           </h1>
           <p className="text-muted-foreground text-center text-lg mb-6">
-            Gaste seus pontos com coisas legais.
+            Gaste seus pontos para encher a vida ou vire Pro.
           </p>
           <Items
             hearts={userProgress.hearts}

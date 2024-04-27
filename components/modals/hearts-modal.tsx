@@ -42,7 +42,8 @@ export const HeartsModal = () => {
             Você está sem vida!
           </DialogTitle>
           <DialogDescription className="text-center text-base">
-            Vire Pro para vidas ilimitadas, ou compre-as na loja.
+            Se torne Pro para vidas ilimitadas ou compre vida na loja utilizando
+            seus pontos.
           </DialogDescription>
         </DialogHeader>
         <DialogFooter className="mb-4">
@@ -53,7 +54,7 @@ export const HeartsModal = () => {
               size="lg"
               onClick={onClick}
             >
-              Vidas ilimitadas
+              Visitar Loja
             </Button>
             <Button
               variant="dangerOutline"

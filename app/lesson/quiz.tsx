@@ -130,7 +130,7 @@ export const Quiz = ({
               setHearts((prev) => Math.min(prev + 1, 5));
             }
           })
-          .catch(() => toast.error("Something went wrong. Please try again."));
+          .catch(() => toast.error("Deu algo errado, tente novamente!"));
       });
     } else {
       startTransition(() => {
@@ -148,7 +148,7 @@ export const Quiz = ({
               setHearts((prev) => Math.max(prev - 1, 0));
             }
           })
-          .catch(() => toast.error("Something went wrong. Please try again."));
+          .catch(() => toast.error("Deu algo errado, tente novamente!"));
       });
     }
   };
@@ -200,7 +200,7 @@ export const Quiz = ({
 
   const title =
     challenge.type === "ASSIST"
-      ? "Select the correct meaning"
+      ? "Selecione a palavra correspondente:"
       : challenge.question;
 
   return (
