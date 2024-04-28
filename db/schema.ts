@@ -81,7 +81,7 @@ export const challengeOptions = pgTable("challenge_options", {
   challengeId: integer("challenge_id")
     .references(() => challenges.id, { onDelete: "cascade" })
     .notNull(),
-  text: text("text").notNull(),
+  text: text("text"),
   correct: boolean("correct").notNull(),
   imageSrc: text("image_src"),
   audioSrc: text("audio_src"),
