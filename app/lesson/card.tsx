@@ -72,7 +72,7 @@ export const Card = ({
         {type === "ASSIST" && <div />}
         <p
           className={cn(
-            "text-neutral-600 text-sm lg:text-base",
+            "text-neutral-600 text-sm lg:text-base mr-2",
             selected && "text-sky-500",
             selected && status === "correct" && "text-green-500",
             selected && status === "wrong" && "text-rose-500"
