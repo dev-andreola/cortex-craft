@@ -82,7 +82,7 @@ export const Card = ({
         </p>
         <div
           className={cn(
-            "lg:min-w-[30px] lg:min-h-[30px] w-[20px] h-[20px] border-2 ml-2 mr-6 flex items-center justify-center rounded-lg text-neutral-400 lg:text-[15px] text-xs font-semibold",
+            "lg:min-w-[30px] lg:min-h-[30px] w-[20px] h-[20px] border-2 ml-2 flex items-center justify-center rounded-lg text-neutral-400 lg:text-[15px] text-xs font-semibold",
             selected && "border-sky-300 text-sky-500",
             selected &&
               status === "correct" &&
