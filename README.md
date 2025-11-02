@@ -1,4 +1,4 @@
-# Córtex
+# Córtex Craft
 
 <img src="public/readme/readme-header.jpg" align="center">
 
