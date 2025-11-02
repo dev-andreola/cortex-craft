@@ -1,4 +1,6 @@
-# Córtex Craft
+# Córtex
+
+<img src="public/readme/readme-header.jpg" align="center">
 
 ## Overview
 
@@ -11,6 +13,8 @@ The Córtex craft is a quiz platform to stimulates the thinking of people who ha
 - TypeScript
 - Next.js
 - TailwindCSS
+- Drizzle ORM
+- PostgreSQL
 
 ## :computer: Dependencies
 
